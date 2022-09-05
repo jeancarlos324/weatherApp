@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 const useLocation = (keyAPI) => {
   const [location, setLocation] = useState({});
   const [weather, setWeather] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const getPosition = () => {
     return new Promise((resolve, reject) =>
@@ -25,7 +26,8 @@ const useLocation = (keyAPI) => {
       )
       .then((res) => {
         setWeather(res.data);
-      });
+      })
+      .finally(() => setLoading(false));
     }
   }, [location]);
 
@@ -39,7 +41,7 @@ const useLocation = (keyAPI) => {
       });
   }, []);
 
-  return {location,weather};
+  return {location,weather,loading};
 };
 
 export default useLocation;
