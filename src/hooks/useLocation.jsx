@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const useLocation = (keyAPI) => {
+const useLocation = () => {
   const [location, setLocation] = useState({});
   const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const useLocation = (keyAPI) => {
 
   useEffect(() => {
     if (location.coords !== undefined) {
-      const KEY = keyAPI;
+      const KEY = "f1e7fe6f7c629c04df4435446c528c5b";
       const LAT = location.coords.latitude;
       const LOG = location.coords.longitude;
       axios

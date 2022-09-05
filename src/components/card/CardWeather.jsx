@@ -3,9 +3,9 @@ import useLocation from "../../hooks/useLocation";
 import Chip from "../chip/Chip";
 
 const CardWeather = () => {
-  const KEY = "f1e7fe6f7c629c04df4435446c528c5b";
+
   const [temperature, setTemperature] = useState(true);
-  const { location, weather: data } = useLocation(KEY);
+  const { location, weather: data } = useLocation();
 
   const temp = data.main?.temp;
   const temp_min = data.main?.temp_min;
@@ -14,7 +14,6 @@ const CardWeather = () => {
   const celsiusToFahrenheit = (temperature) => (temperature * 9) / 5 + 32;
 
   const changeDegree = () => setTemperature(!temperature);
-  console.log(data);
   return (
     <div className="flex flex-col items-center text-white bg-[url(https://static.abc.es/Media/201509/24/equinoccio--644x362.jpg)] p-5 gap-3 rounded-3xl shadow-2xl">
       <h1 className="font-bold text-3xl">Weather App</h1>
@@ -25,8 +24,8 @@ const CardWeather = () => {
           <span className="text-sm">{data.sys?.country}</span>
         </div>
       </div>
-      <div className="flex gap-5 justify-center items-center">
-        <div className=" h-1/3 w-1/3 relative bg-[#00000052] rounded-2xl backdrop-blur">
+      <div className=" sm:flex sm:flex-col sm:justify-center sm:items-center md:flex md:flex-row   gap-5 md:justify-center md:items-center">
+        <div className=" sm:w-1/2 sm:h-1/2  md:h-1/3 md:w-1/3 m-2  relative bg-[#00000052] rounded-2xl backdrop-blur">
           <div className="absolute font-bold left-3 top-2">
             <span className="text-4xl ">
               {" "}
@@ -37,11 +36,12 @@ const CardWeather = () => {
             <span className="text-2xl ">{temperature ? "C°" : "F°"}</span>
           </div>
           <img
+           className="m-auto"
             src={`http://openweathermap.org/img/wn/${data.weather?.[0].icon}@4x.png`}
             alt={data.weather?.[0].main}
           />
         </div>
-        <div className=" grid md:grid-cols-2  sm:grid-cols-1 w-2/3 gap-3">
+        <div className=" grid grid-cols-2 sm:w-full md:w-2/3 gap-3">
           <Chip
             title={"Wind Speed: "}
             content={`${data.wind?.speed} m/s`}
@@ -91,7 +91,7 @@ const CardWeather = () => {
       <div className="w-full flex justify-end">
         <button
           onClick={changeDegree}
-          className=" w-1/3 border-gray-300 border-2 p-2 rounded-xl hover:scale-105 hover:bg-blue-500 ring-1 opacity-90 ease-in transition duration-300"
+          className=" sm: w-full md:w-1/2 border-gray-300 border-2 p-2 rounded-xl hover:scale-105 hover:bg-blue-500 ring-1 opacity-90 ease-in transition duration-300"
         >
           Change {temperature ? "Celsius" : "Fahrenheit"}
         </button>
